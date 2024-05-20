@@ -1,0 +1,76 @@
+[
+
+            {
+                "id": "11",
+                "name": "Street Food",
+                "children": []
+            },
+            {
+                "id": "12",
+                "name": "French Cuisine",
+                "children": []
+            },
+            {
+                "id": "13",
+                "name": "Healthy Food",
+                "children": []
+            },
+            {
+                "id": "14",
+                "name": "Indian Cuisine",
+                "children": []
+            },
+            {
+                "id": "15",
+                "name": "Fine Dining",
+                "children": []
+            },
+            {
+                "id": "16",
+                "name": "International Cuisine",
+                "children": [
+                    {
+                        "id": "20",
+                        "name": "Italian",
+                        "children": []
+                    },
+                    {
+                        "id": "19",
+                        "name": "Mexican",
+                        "children": []
+                    },
+                    {
+                        "id": "18",
+                        "name": "Chinese",
+                        "children": []
+                    },
+                    {
+                        "id": "17",
+                        "name": "Japanese",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "id": "21",
+                "name": "Korean Cuisine",
+                "children": []
+            },
+            {
+                "id": "22",
+                "name": "Gluten-Free",
+                "children": []
+            },
+            {
+                "id": "23",
+                "name": "Homestyle",
+                "children": []
+            },
+            {
+                "id": "24",
+                "name": "Thai",
+                "children": []
+            }
+
+
+]

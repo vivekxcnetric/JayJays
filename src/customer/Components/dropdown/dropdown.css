@@ -1,0 +1,113 @@
+.header-desk-navbar .header-desk-container {
+    border-top: 1px solid #f4f4f4;
+  }
+
+  .nav-area {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+  }
+
+  .menus {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+
+  .menus > .menu-items {
+    position: relative;
+    padding-block: 0.6rem;
+  }
+  .menus > .menu-items a {
+    font-size: 16px;
+  }
+  .dropdown > .menu-items a {
+    font-size: 14px;
+  }
+
+  .menu-items {
+    position: relative;
+    font-size: 14px;
+  }
+
+  .menu-items a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    line-height: 23px;
+    letter-spacing: 0.2px;
+    text-decoration: none;
+    font-family: "proximanova";
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #090a09;
+    width: 100%;
+  }
+
+  .menu-items button {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  button span {
+    margin-left: 3px;
+  }
+
+  .menu-items > a,
+  .menu-items button {
+    color: #090a09;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    padding: 5px 0px 5px 20px;
+  }
+
+  .menu-items a:hover,
+  .menu-items button:hover {
+    color: #090a09;
+  }
+
+  .arrow::after {
+    content: "";
+    display: inline-block;
+    margin-left: 0.28em;
+    vertical-align: 0.09em;
+    border-top: 0.42em solid;
+    border-right: 0.32em solid transparent;
+    border-left: 0.32em solid transparent;
+  }
+
+  .dropdown {
+    position: absolute;
+    left: auto;
+    top: 50px;
+    font-size: 0.875rem;
+    z-index: 9999;
+    min-width: 10rem;
+    list-style: none;
+    background-color: #fff;
+    display: none;
+    padding: 12px 0;
+    white-space: nowrap;
+    min-width: 200px;
+    border: 1px solid #ededed;
+    box-shadow: 3px 3px 5px -2px #2527441f;
+  }
+
+  .dropdown.show {
+    display: block;
+  }
+
+  .dropdown .dropdown-submenu {
+    position: absolute;
+    left: 100%;
+    top: -7px;
+  }

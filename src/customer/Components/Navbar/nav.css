@@ -1,0 +1,15 @@
+.grid-cols-2-limit {
+  @apply grid grid-cols-2 gap-x-8 gap-y-10;
+}
+
+.minmax-0 {
+  @apply min-w-0;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Adjust z-index as needed */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for a more prominent sticky effect */
+}
