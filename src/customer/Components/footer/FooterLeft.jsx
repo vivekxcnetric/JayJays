@@ -102,7 +102,7 @@ const Join = styled.a`
 const Link = styled.div`
   width: 100%;
   margin: 15px auto;
-  background-color: yellow;
+  background-color: black;
   display: flex;
   flex-direction: row;
   align-items: center;
