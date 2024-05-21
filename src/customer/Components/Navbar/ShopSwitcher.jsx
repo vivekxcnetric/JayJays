@@ -56,16 +56,15 @@ const BrandIcon = styled.img`
 
 const ShopSwitcher = () => {
   const brands = [
-    { url: "https://portmans.jgl.com.au/", icon: "/icon--mbportmans.svg" },
-    { url: "https://dotti.jgl.com.au/", icon: "/svg9.svg" },
-    { url: "https://justjeans.jgl.com.au/", icon: "/svg2.svg" },
-
-    // { url: "https://jayjays.jgl.com.au/", icon: "/svg10.svg" },
-    { url: "https://jacquie.jgl.com.au/", icon: "/svg11.svg" },
+    { url: "http://49.206.253.146:2245", icon: "/svg2.svg" }, // justJeans
+    { url: "http://49.206.253.146:2275", icon: "/icon--mbportmans.svg" }, // portmans
+    { url: "http://49.206.253.146:2273", icon: "/svg9.svg" }, // dotti
+    // { url: "http://49.206.253.146:2234", icon: "/svg10.svg" }, // jayJays
+    { url: "http://49.206.253.146:2269", icon: "/svg11.svg" }, // jacqui-e
   ];
 
   const handleBrandClick = (url) => {
-    window.open(url, "_blank");
+    window.location.href = url;
   };
 
   return (
