@@ -245,14 +245,29 @@ export const addNewAddress = (datas) => {
   });
 };
 
-export const setShipInfo = (shipModeId, orderItemId, addressId) => {
-  let data = {
-    shipModeId,
-    orderItemId,
-    addressId,
-  };
+// export const setShipInfo = (shipModeId, orderItemId, addressId) => {
+//   let data = {
+//     shipModeId,
+//     orderItemId,
+//     addressId,
+//   };
+//   return new Promise((resolve, reject) => {
+//     putCall("setShipping", data)
+//       .then((response) => {
+//         if (response.status === 201) {
+//           resolve(response.data);
+//         }
+//       })
+//       .catch((error) => {
+//         reject(error);
+//       })
+//       .finally();
+//   });
+// };
+
+export const setShipInfo = (datas) => {
   return new Promise((resolve, reject) => {
-    putCall("setShipping", data)
+    putCall("setShipping2", datas)
       .then((response) => {
         if (response.status === 201) {
           resolve(response.data);

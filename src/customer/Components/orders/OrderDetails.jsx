@@ -22,7 +22,9 @@ const OrderDetails = () => {
 
   const [linesData, setLinesData] = useState();
   const [address, setAddress] = useState({});
-  const [productDetails, setProductDetails] = useState({});
+  // const [productDetails, setProductDetails] = useState({});
+  const [productDetails, setProductDetails] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const [status, setStatus] = useState(null);
@@ -71,22 +73,63 @@ const OrderDetails = () => {
       email1: linesData?.orderItem?.[0]?.email1,
     });
   }, [linesData]);
+  // useEffect(() => {
+  //   // const item = linesData?.orderItem?.[0];
+  //   const item = linesData?.orderItem?.map((item) => item) || [];
+  //   console.log("item", item);
+
+  //   const status = linesData?.orderStatus;
+  //   setStatus(status);
+  //   if (item?.productId) {
+  //     console.log("item", item);
+
+  //     receiveProductsById(item.productId).then((res) => {
+  //       if (res && res.catalogEntryView && res.catalogEntryView.length > 0) {
+  //         const product = res.catalogEntryView[0];
+  //         setProductDetails(product);
+
+  //         setLoading(false);
+  //       }
+  //     });
+  //   }
+  // }, [linesData, productDetails]);
+
   useEffect(() => {
-    const item = linesData?.orderItem?.[0];
+    const items = linesData?.orderItem || [];
+    console.log("items", items);
+
     const status = linesData?.orderStatus;
     setStatus(status);
-    console.log("item", item);
-    if (item?.productId) {
-      receiveProductsById(item.productId).then((res) => {
-        if (res && res.catalogEntryView && res.catalogEntryView.length > 0) {
-          const product = res.catalogEntryView[0];
-          setProductDetails(product);
 
-          setLoading(false);
-        }
-      });
+    // Check if items array has any product IDs to fetch
+    if (items.length > 0) {
+      const fetchProductDetails = async () => {
+        const products = await Promise.all(
+          items.map(async (item) => {
+            if (item.productId) {
+              console.log("Fetching details for item", item);
+              const res = await receiveProductsById(item.productId);
+              if (
+                res &&
+                res.catalogEntryView &&
+                res.catalogEntryView.length > 0
+              ) {
+                return { ...res.catalogEntryView[0], quantity: item.quantity };
+              }
+            }
+            return null;
+          })
+        );
+
+        // Filter out any null values and update productDetails
+        setProductDetails(products.filter((product) => product !== null));
+        setLoading(false);
+      };
+
+      fetchProductDetails();
     }
-  }, [linesData]);
+  }, [linesData, productDetails, linesData?.orderItem?.length]);
+
   const navigate = useNavigate();
   return (
     <>
@@ -95,14 +138,19 @@ const OrderDetails = () => {
           <Loader />
         ) : (
           <>
-            <div className=" px-2 lg:px-36 space-y-7 ">
+            <div className=" px-2 lg:px-36 space-y-7 mt-10">
               <Grid container className="p-3 shadow-lg">
-                <Grid xs={12}>
-                  <p className="font-bold text-lg py-2">Shipping Address</p>
+                <Grid item xs={12}>
+                  {/* <p className="font-bold text-lg py-2">Shipping Address</p> */}
                 </Grid>
-                <Grid item xs={6}>
-                  <AddressCard address={address} />
-                </Grid>
+                <div className="grid grid-cols-2 gap-4 w-full">
+                  <div className="flex justify-center">
+                    <AddressCard address={address} title={"Shipping Address"} />
+                  </div>
+                  <div className="flex justify-center">
+                    <AddressCard address={address} title={"Billing Address"} />
+                  </div>
+                </div>
               </Grid>
               <Box className="p-5 shadow-lg border rounded-md">
                 <Grid
@@ -140,8 +188,10 @@ const OrderDetails = () => {
 
               <Grid container className="space-y-5">
                 {linesData &&
-                  linesData?.orderItem?.length > 0 &&
-                  linesData?.orderItem?.map((item) => (
+                  // linesData?.orderItem?.length > 0 &&
+                  // linesData?.orderItem?.map((item) => (
+                  productDetails?.length > 0 &&
+                  productDetails?.map((item) => (
                     <Grid
                       container
                       item
@@ -156,11 +206,11 @@ const OrderDetails = () => {
                         <div className="flex  items-center ">
                           <img
                             className="w-[7rem] h-[7rem] object-contain object-top"
-                            src={productDetails?.thumbnail}
+                            src={item?.thumbnail}
                             alt=""
                           />
                           <div className="ml-5 space-y-2">
-                            <p className="">{productDetails?.name}</p>
+                            <p className="">{item?.name}</p>
                             {/* <p className="opacity-50 text-xs font-semibold space-x-5">
                     <span>Color: pink</span> <span>Size: {item.size}</span>
                   </p> */}
@@ -168,7 +218,7 @@ const OrderDetails = () => {
                             <p>
                               {" "}
                               $
-                              {productDetails?.price?.[0]?.value *
+                              {item?.price?.[0]?.value *
                                 parseInt(item?.quantity)}
                             </p>
                           </div>

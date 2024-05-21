@@ -32,7 +32,24 @@ const PaymentSuccess = () => {
   const { order } = useSelector((store) => store);
 
   const [orderData, setOrderData] = useState({});
-  const [productDetails, setProductDetails] = useState({});
+  const [productDetails, setProductDetails] = useState([]);
+  const [address, setAddress] = useState({});
+
+  useEffect(() => {
+    setAddress({
+      firstName: orderData?.orderItem?.[0]?.firstName,
+      lastName: orderData?.orderItem?.[0]?.lastName,
+      addressLine: [
+        orderData?.orderItem?.[0]?.addressLine[0],
+        orderData?.orderItem?.[0]?.addressLine[1],
+      ],
+      city: orderData?.orderItem?.[0]?.city,
+      state: orderData?.orderItem?.[0]?.state,
+      zipCode: orderData?.orderItem?.[0]?.zipCode,
+      phone1: orderData?.orderItem?.[0]?.phone1,
+      email1: orderData?.orderItem?.[0]?.email1,
+    });
+  }, [orderData]);
 
   useEffect(() => {
     dispatch(getCartItems());
@@ -58,33 +75,67 @@ const PaymentSuccess = () => {
     // }
   }, [orderId, paymentId]);
 
+  // useEffect(() => {
+  //   const item = orderData?.orderItem?.map((item) => item) || [];
+  //   console.log("item", item);
+  //   if (item?.productId) {
+  //     receiveProductsById(item.productId).then((res) => {
+  //       if (res && res.catalogEntryView && res.catalogEntryView.length > 0) {
+  //         const product = res.catalogEntryView[0];
+  //         setProductDetails(product);
+  //         setLoading(false);
+  //       }
+  //     });
+  //   }
+  // }, [orderData]);
+
   useEffect(() => {
-    const item = orderData?.orderItem?.[0];
-    console.log("item", item);
-    if (item?.productId) {
-      receiveProductsById(item.productId).then((res) => {
-        if (res && res.catalogEntryView && res.catalogEntryView.length > 0) {
-          const product = res.catalogEntryView[0];
-          setProductDetails(product);
-          setLoading(false);
-        }
-      });
+    const items = orderData?.orderItem || [];
+    console.log("items", items);
+
+    const status = orderData?.orderStatus;
+    // setStatus(status);
+
+    // Check if items array has any product IDs to fetch
+    if (items.length > 0) {
+      const fetchProductDetails = async () => {
+        const products = await Promise.all(
+          items.map(async (item) => {
+            if (item.productId) {
+              // console.log("Fetching details for item", item);
+              const res = await receiveProductsById(item.productId);
+              if (
+                res &&
+                res.catalogEntryView &&
+                res.catalogEntryView.length > 0
+              ) {
+                return { ...res.catalogEntryView[0], quantity: item.quantity };
+              }
+            }
+            return null;
+          })
+        );
+
+        // Filter out any null values and update productDetails
+        setProductDetails(products.filter((product) => product !== null));
+        setLoading(false);
+      };
+
+      fetchProductDetails();
     }
-  }, [orderData]);
+  }, [orderData, productDetails]);
   console.log(localStorage.getItem("address"));
   return (
-    <div className="px-2 lg:px-36">
+    <div className="px-2 lg:px-36 py-10">
       <div className="flex flex-col justify-center items-center">
         <Alert
           variant="filled"
           severity="success"
           sx={{ mb: 6, width: "fit-content" }}
         >
-          <AlertTitle>order Success orderId {orderId}</AlertTitle>
-          Congratulation Your Order Get Placed
+          <AlertTitle>Order Success! Order ID: {orderId}</AlertTitle>
+          Congratulations, Your Order Has Been Placed.
         </Alert>
-        {/* <p style={{ fontSize: 25 }}>Your Order Success OrderId: {orderId}</p>
-        <p> Congratulation Your Order Get Placed...!</p> */}
       </div>
 
       <OrderTraker activeStep={1} />
@@ -92,7 +143,8 @@ const PaymentSuccess = () => {
         <Loader />
       ) : (
         <Grid container className="space-y-5 py-5 pt-20">
-          {orderData?.orderItem?.map((item) => (
+          {/* {orderData?.orderItem?.map((item) => ( */}
+          {productDetails?.map((item) => (
             // {productDetails && (
             <Grid
               container
@@ -105,27 +157,25 @@ const PaymentSuccess = () => {
                 <div className="flex  items-center ">
                   <img
                     className="w-[7rem] h-[7rem] object-cover object-top"
-                    src={productDetails?.thumbnail}
+                    src={item?.thumbnail}
                     alt=""
                   />
                   <div className="ml-5 space-y-2">
-                    <p className="">{productDetails?.name}</p>
+                    <p className="">{item?.name}</p>
                     <p className="opacity-60 text-xs font-semibold space-x-5">
                       {/* <span>Color: pink</span>  */}
                       <span>Quantity: {parseInt(item?.quantity)}</span>
                     </p>
                     {/* <p>Seller: {item.product.brand}</p> */}
-                    <p>
-                      $
-                      {productDetails?.price?.[0]?.value *
-                        parseInt(item?.quantity)}
-                    </p>
+                    <p>${item?.price?.[0]?.value * parseInt(item?.quantity)}</p>
                   </div>
                 </div>
               </Grid>
               <Grid item>
                 <AddressCard
-                  address={JSON.parse(localStorage.getItem("address"))}
+                  // address={JSON.parse(localStorage.getItem("address"))}
+                  address={address}
+                  title={"Shipping Address"}
                 />
                 {/* <AddressCard address={localStorage.getItem("address")} /> */}
               </Grid>

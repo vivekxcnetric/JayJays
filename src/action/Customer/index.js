@@ -46,6 +46,33 @@ export const getCustomerNew = (data) => {
   };
 };
 
+export const CustomerNew = (data) => {
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      post("signup", data)
+        .then((response) => {
+          if (response.status === 201) {
+            // console.log("this is details", response.data);
+            LocalStorageService.setWcToken(response.data.WCToken);
+
+            LocalStorageService.setWcTrustedToken(response.data.WCTrustedToken);
+            dispatch({
+              type: "GET_CUSTOMER_NEW",
+              user: response?.data,
+            });
+
+            window.location.replace("/");
+            resolve(response.data);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        })
+        .finally();
+    });
+  };
+};
+
 export const getCustomerInfo = () => {
   // return (dispatch) => {
   return new Promise((resolve, reject) => {

@@ -83,7 +83,7 @@ const Homepage = () => {
             /> */}
 
             <div className="flex justify-center px-4 sm:px-6 lg:px-8 pt-5">
-              {bannersHome.slice(0, 2).map((banner, index) => (
+              {bannersHome?.slice(0, 2).map((banner, index) => (
                 <div key={index} className="flex items-center mx-2">
                   <img
                     src={banner.url}

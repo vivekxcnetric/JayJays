@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { register } from "../Redux/Auth/Action";
+// import { register } from "../Redux/Auth/Action";
 import { TextField, InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -338,10 +338,10 @@ const SignUp = () => {
                 />
               </div>
               <div>
-                <label htmlFor="terms">
+                {/* <label htmlFor="terms">
                   Sign up to Portmans emails and receive 15% off your next full
                   price purchase at Portmans.
-                </label>
+                </label> */}
               </div>
             </div>
             {error && <ErrorText>{error}</ErrorText>}

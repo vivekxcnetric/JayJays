@@ -82,6 +82,10 @@ const CartItem = ({
                 <p className="font-semibold">{productDetails?.name}</p>
                 {/* <p className="opacity-70">Size: {item?.size},White</p>
          <p className="opacity-70 mt-2">Seller: {item?.product?.brand}</p> */}
+                <p className="opacity-60 text-sm font-semibold space-x-5">
+                  {/* <span>Color: pink</span>  */}
+                  Quantity: {parseInt(item?.quantity)}
+                </p>
                 <div className="flex space-x-2 items-center pt-3">
                   <p className="opacity-50 line-through">
                     {/* ${productDetails?.price?.[0]?.value} */}

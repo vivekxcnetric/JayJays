@@ -248,7 +248,7 @@ export default function ProductDetails() {
                 >
                   <div className="flex items-center">
                     <a
-                      href={"/"}
+                      href={"/shops"}
                       className="mr-2 text-sm font-medium text-gray-900"
                     >
                       Products

@@ -51,11 +51,21 @@ const OrderSummary = ({ data, handleNext }) => {
     // console.log("this is order id ", res.data.orderId);
     // });
     const shipModeId = "15001";
-    const orderItemId =
-      // cartItems?.cartItems?.orderItem?.map((item) => item.orderItemId) ||
-      cartItems?.cartItems?.orderItem[0]?.orderItemId;
     const addressId = data.addressId;
-    setShipInfo(shipModeId, orderItemId, addressId).then((res) => {
+
+    const orderItems = cartItems?.cartItems?.orderItem || []; // Ensure orderItems is an array
+
+    // Map through orderItems to create the desired data format
+    const formattedOrderItems = orderItems.map((item) => ({
+      shipModeId: shipModeId,
+      orderItemId: item.orderItemId,
+      addressId: addressId,
+    }));
+
+    const payload = {
+      orderItem: formattedOrderItems,
+    };
+    setShipInfo(payload).then((res) => {
       console.log("this is res", res);
       // navigate(`/payment/${res.data.orderId}`);
     });
@@ -65,7 +75,7 @@ const OrderSummary = ({ data, handleNext }) => {
   return (
     <div className="space-y-5">
       <div className="p-5 shadow-lg rounded-md border ">
-        <AddressCard address={data} />
+        <AddressCard address={data} title={"Shipping Address"} />
       </div>
       <div className="lg:grid grid-cols-3 relative justify-between">
         <div className="lg:col-span-2 ">
