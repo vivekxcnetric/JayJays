@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-// import { register } from "../Redux/Auth/Action";
+import { register } from "../Redux/Auth/Action";
 import { TextField, InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
