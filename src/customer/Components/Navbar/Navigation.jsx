@@ -594,7 +594,7 @@ export default function Navigation() {
                       style={{ color: "black" }}
                       aria-hidden="true"
                       onClick={() => {
-                        navigate("/shops");
+                        navigate("/search");
                       }}
                     />
                   </p>

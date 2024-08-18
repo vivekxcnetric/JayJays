@@ -25,6 +25,8 @@ import FooterLeft from "../customer/Components/footer/FooterLeft";
 import styled from "styled-components";
 import FooterBrandList from "../customer/Components/footer/FooterBrandList";
 import ProfilePage from "../Pages/ProfilePage";
+import Search from "../customer/Components/Search";
+
 // import SignIn from "../customer/Components/Auth/SignIn";
 
 // import SignUp from "../customer/Components/Auth/SignUp";
@@ -105,6 +107,8 @@ const CustomerRoutes = () => {
           <Route path="/checkout" element={<Checkout />}></Route>
           <Route path="/payment/:orderId" element={<PaymentSuccess />}></Route>
           <Route path="/shops" element={<Product />}></Route>
+          <Route path="/search" element={<Search />}></Route>
+
           <Route path="*" element={<NotFound />} />
         </Routes>
         <FooterWrapper>
