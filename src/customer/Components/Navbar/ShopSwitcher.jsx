@@ -56,11 +56,11 @@ const BrandIcon = styled.img`
 
 const ShopSwitcher = () => {
   const brands = [
-    { url: "http://49.206.253.146:2245", icon: "/svg2.svg" }, // justJeans
-    { url: "http://49.206.253.146:2275", icon: "/icon--mbportmans.svg" }, // portmans
-    { url: "http://49.206.253.146:2273", icon: "/svg9.svg" }, // dotti
-    // { url: "http://49.206.253.146:2234", icon: "/svg10.svg" }, // jayJays
-    { url: "http://49.206.253.146:2269", icon: "/svg11.svg" }, // jacqui-e
+    { url: "http://106.51.242.196:2245", icon: "/svg2.svg" }, // justJeans
+    { url: "http://106.51.242.196:2275", icon: "/icon--mbportmans.svg" }, // portmans
+    { url: "http://106.51.242.196:2273", icon: "/svg9.svg" }, // dotti
+    // { url: "http://106.51.242.196:2245", icon: "/svg10.svg" }, // jayJays
+    { url: "http://106.51.242.196:2269", icon: "/svg11.svg" }, // jacqui-e
   ];
 
   const handleBrandClick = (url) => {
